@@ -1,51 +1,32 @@
 <!DOCTYPE html>
-<html lang="id" class="dark scroll-smooth">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Nawa - TKJ Specialist</title>
-    <!-- Tailwind CSS -->
+    <title>Portofolio | Nawa - TKJ Specialist</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts (Inter & JetBrains Mono) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#0284c7',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            cyan: '#06b6d4',
-                            accent: '#3b82f6',
-                            emerald: '#10b981'
-                        },
-                        darkbg: '#0b0f17',
-                        cardbg: '#111827',
-                        bordercolor: '#1f2937'
+                            dark: '#0B0F19',
+                            card: '#111827',
+                            accent: '#06B6D4', // Cyan
+                            glow: '#3B82F6',   // Blue
+                            text: '#F3F4F6'
+                        }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        glow: {
-                            '0%': { boxShadow: '0 0 15px rgba(6, 182, 212, 0.3)' },
-                            '100%': { boxShadow: '0 0 30px rgba(6, 182, 212, 0.8)' }
-                        }
+                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
@@ -53,12 +34,16 @@
     </script>
     <style>
         body {
-            background-color: #0b0f17;
-            color: #f3f4f6;
+            background-color: #060913;
+            color: #E5E7EB;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
         }
-        /* Custom Glowing Elements */
+        .glow-effect {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.25);
+        }
+        .glow-text {
+            text-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+        }
         .glass-card {
             background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(12px);
@@ -66,262 +51,304 @@
         }
         .glass-card:hover {
             border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.2);
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.3);
         }
-        .network-grid {
-            background-image: radial-gradient(rgba(6, 182, 212, 0.15) 1px, transparent 1px);
+        .bg-grid {
             background-size: 30px 30px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
-        .gradient-text {
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Custom Glowing Node Animation Canvas */
+        #cyber-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
     </style>
 </head>
-<body class="network-grid antialiased selection:bg-cyan-500 selection:text-white">
+<body class="bg-grid antialiased selection:bg-cyan-500 selection:text-black">
 
-    <!-- Header / Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-gray-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <a href="#hero" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-mono font-bold text-xl shadow-lg shadow-cyan-500/30">
-                        N
-                    </div>
-                    <span class="font-mono font-bold text-lg tracking-wider text-white">NAWA<span class="text-cyan-400">.TKJ</span></span>
-                </a>
-
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-8 font-medium text-sm text-gray-300">
-                    <a href="#about" class="hover:text-cyan-400 transition-colors py-2">Tentang</a>
-                    <a href="#skills" class="hover:text-cyan-400 transition-colors py-2">Keahlian</a>
-                    <a href="#projects" class="hover:text-cyan-400 transition-colors py-2">Proyek</a>
-                    <a href="#contact" class="hover:text-cyan-400 transition-colors py-2">Kontak</a>
-                </nav>
-
-                <!-- Action Button -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="https://wa.me/6285743674463" target="_blank" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium text-sm transition-all duration-300 shadow-md shadow-cyan-500/20 flex items-center gap-2">
-                        <i class="fab fa-whatsapp text-lg"></i> Hubungi Saya
-                    </a>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
-                        <i class="fas fa-bars text-xl" id="menu-icon"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden md:hidden glass-card border-b border-gray-800 px-4 pt-2 pb-4 space-y-2">
-            <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Tentang</a>
-            <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Keahlian</a>
-            <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Proyek</a>
-            <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/60">Kontak</a>
-            <a href="https://wa.me/6285743674463" target="_blank" class="w-full mt-2 px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-white font-medium text-center flex items-center justify-center gap-2">
-                <i class="fab fa-whatsapp"></i> WhatsApp
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-card border-b border-gray-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="text-2xl font-bold font-mono tracking-wider text-white">NAWA<span class="text-cyan-400">.TKJ</span></span>
             </a>
+            
+            <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-cyan-400 transition-colors">Tentang Saya</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-colors">Keahlian</a>
+                <a href="#education" class="hover:text-cyan-400 transition-colors">Pendidikan</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors">Kontak</a>
+            </nav>
+
+            <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs font-semibold uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-cyan-500/20">
+                <i class="fa-solid fa-paper-plane mr-2"></i> Hubungi Saya
+            </a>
+
+            <!-- Mobile menu button -->
+            <button id="menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-b border-gray-800">
+            <div class="px-4 pt-2 pb-4 space-y-3 font-medium text-sm">
+                <a href="#about" class="block py-2 hover:text-cyan-400 transition-colors">Tentang Saya</a>
+                <a href="#skills" class="block py-2 hover:text-cyan-400 transition-colors">Keahlian</a>
+                <a href="#education" class="block py-2 hover:text-cyan-400 transition-colors">Pendidikan</a>
+                <a href="#contact" class="block py-2 hover:text-cyan-400 transition-colors">Kontak</a>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="min-h-screen pt-24 pb-16 flex items-center justify-center relative overflow-hidden">
-        <!-- Glowing background blobs -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-3xl -z-10 animate-pulse-slow"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full filter blur-3xl -z-10 animate-pulse-slow"></div>
+    <section id="about" class="relative pt-32 pb-20 md:pt-40 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-screen flex items-center overflow-hidden">
+        
+        <!-- 
+          =======================================================================
+          [BACKGROUND VIDEO + ANIMASI CYBER NETWORK DI BELAKANG TULISAN NAWA]
+          Memuat video animasi high-speed cyber network serta canvas partikel live.
+          =======================================================================
+        -->
+        <div class="absolute inset-0 z-0 rounded-3xl overflow-hidden pointer-events-none select-none">
+            
+            <!-- Video Background (Utamakan file lokal bg-nawa.mp4) -->
+            <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover opacity-50 filter blur-[1px] scale-105">
+                <!-- File Video Lokal Milik Nawa di HP -->
+                <source src="bg-nawa.mp4" type="video/mp4">
+                <!-- Backup Link Online -->
+                <source src="https://cdn.pixabay.com/video/2021/04/12/70929-536484379_large.mp4" type="video/mp4">
+            </video>
+            
+            <!-- Canvas Visual Effect Nodes & Lines (Selalu aktif dan beranimasi secara real-time) -->
+            <canvas id="cyber-canvas"></canvas>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Left Text Side -->
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs sm:text-sm font-mono">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                        Spesialis Teknik Komputer & Jaringan
-                    </div>
-
-                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                        Halo, Saya <br class="hidden sm:inline" />
-                        <span class="gradient-text">Nawa</span>
-                    </h1>
-
-                    <p class="text-lg sm:text-xl text-gray-400 max-w-2xl font-light">
-                        Siswa / Praktisi <span class="text-cyan-400 font-medium">Teknik Komputer & Jaringan (TKJ)</span> yang berfokus pada administrasi jaringan, troubleshooting perangkat keras, konfigurasi MikroTik, dan arsitektur infrastruktur IT.
-                    </p>
-
-                    <!-- Terminal Card Preview -->
-                    <div class="glass-card rounded-xl p-4 font-mono text-xs sm:text-sm text-left max-w-lg mx-auto lg:mx-0 shadow-2xl border border-gray-800">
-                        <div class="flex items-center space-x-2 mb-3 border-b border-gray-800 pb-2">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            <span class="text-gray-500 text-xs ml-2">nawa@tkj-node:~# status</span>
-                        </div>
-                        <div class="space-y-1 text-gray-300">
-                            <p><span class="text-cyan-400">root@nawa:~#</span> ping -c 1 destination_network</p>
-                            <p class="text-emerald-400">64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=0.042 ms</p>
-                            <p><span class="text-cyan-400">root@nawa:~#</span> system-status --location</p>
-                            <p class="text-yellow-400">> Samborejo, Tirto, Pekalongan, Indonesia</p>
-                        </div>
-                    </div>
-
-                    <!-- Call To Actions -->
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
-                        <a href="#contact" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold shadow-lg shadow-cyan-500/25 transition-all duration-300 flex items-center gap-2">
-                            <i class="fas fa-paper-plane"></i> Hubungi Saya
-                        </a>
-                        <a href="#skills" class="px-6 py-3 rounded-xl glass-card hover:bg-gray-800/80 text-gray-200 font-semibold border border-gray-700 transition-all duration-300 flex items-center gap-2">
-                            <i class="fas fa-layer-group"></i> Lihat Keahlian
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Right Visual Side -->
-                <div class="lg:col-span-5 flex justify-center">
-                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
-                        <!-- Outer Glow Ring -->
-                        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 opacity-30 blur-2xl animate-pulse"></div>
-                        
-                        <!-- Avatar / Card Container -->
-                        <div class="relative w-full h-full glass-card rounded-3xl p-8 flex flex-col items-center justify-center text-center border border-cyan-500/30 group hover:border-cyan-400 transition-all duration-500">
-                            
-                            <!-- Profile Picture Ring & Image -->
-                            <div class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 p-1 mb-4 shadow-xl shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300">
-                                <img 
-                                    src="input_file_0.png" 
-                                    alt="Foto Profil Nawa TKJ" 
-                                    onerror="this.onerror=null; this.src='https://placehold.co/300x300/0284c7/ffffff?text=Nawa';"
-                                    class="w-full h-full object-cover rounded-full border-2 border-gray-900"
-                                />
-                                <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-gray-900 rounded-full" title="Online / Active"></span>
-                            </div>
-
-                            <h3 class="text-2xl font-bold text-white">Nawa</h3>
-                            <p class="text-xs font-mono text-cyan-400 mt-1">Network & Computer Specialist</p>
-
-                            <div class="mt-4 flex flex-wrap justify-center gap-2 text-gray-300 text-xs font-mono">
-                                <span class="px-2.5 py-1 rounded-md bg-gray-800/80 border border-gray-700/80">RouterOS</span>
-                                <span class="px-2.5 py-1 rounded-md bg-gray-800/80 border border-gray-700/80">Linux</span>
-                                <span class="px-2.5 py-1 rounded-md bg-gray-800/80 border border-gray-700/80">Cisco</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <!-- Gradient Overlay (Menjaga agar teks di atas video tetap sangat jelas terbaca) -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#060913] via-[#060913]/85 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#060913] via-transparent to-[#060913]"></div>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-2">// TENTANG SAYA</h2>
-                <h3 class="text-3xl sm:text-4xl font-bold text-white">Dedikasi Tinggi di Bidang Teknologi Jaringan</h3>
-                <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
-            </div>
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12 items-center w-full">
+            
+            <!-- Left Info Column -->
+            <div class="md:col-span-7 space-y-6 text-center md:text-left">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full glass-card border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span>Teknik Komputer & Jaringan</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+                    Halo, Saya <br>
+                    <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent glow-text">
+                        NAWA
+                    </span>
+                </h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Info Box 1 -->
-                <div class="glass-card p-6 rounded-2xl border border-gray-800 hover:border-cyan-500/40 transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl mb-4">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-white mb-2">Jurusan TKJ</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Memiliki pemahaman mendalam tentang konsep dasar hingga lanjut mengenai Teknik Komputer & Jaringan, mencakup arsitektur jaringan LAN/WAN dan hardware komputer.
-                    </p>
+                <p class="text-gray-400 text-base sm:text-lg max-w-xl leading-relaxed">
+                    Siswa <span class="text-white font-medium">SMK Ma'arif NU Tirto</span> jurusan Teknik Komputer & Jaringan. Memiliki ketertarikan mendalam pada infrastruktur jaringan, hardware komputer, dan perakitan sistem teknologi.
+                </p>
+
+                <!-- Key Badges -->
+                <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-3 text-xs font-mono text-gray-300">
+                    <span class="px-3 py-1.5 rounded-md bg-gray-800/80 border border-gray-700 flex items-center">
+                        <i class="fa-solid fa-location-dot text-cyan-400 mr-2"></i> Tirto, Pekalongan
+                    </span>
+                    <span class="px-3 py-1.5 rounded-md bg-gray-800/80 border border-gray-700 flex items-center">
+                        <i class="fa-solid fa-graduation-cap text-cyan-400 mr-2"></i> SMK Ma'arif NU Tirto
+                    </span>
                 </div>
 
-                <!-- Info Box 2 -->
-                <div class="glass-card p-6 rounded-2xl border border-gray-800 hover:border-cyan-500/40 transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl mb-4">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-white mb-2">Domisili</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Berbasis di <strong class="text-gray-200">Samborejo, Tirto, Pekalongan</strong>. Siap berkontribusi secara lokal maupun bekerja secara remote untuk proyek IT.
-                    </p>
-                </div>
-
-                <!-- Info Box 3 -->
-                <div class="glass-card p-6 rounded-2xl border border-gray-800 hover:border-cyan-500/40 transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl mb-4">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-white mb-2">Fokus Utama</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Manajemen Router, Instalasi Jaringan Fiber/UTP, Troubleshooting Komputer, Keamanan Jaringan Dasar, serta Manajemen Server Linux.
-                    </p>
+                <!-- Call To Action Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#contact" class="px-6 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-sm transition-all transform hover:-translate-y-0.5 shadow-lg shadow-cyan-500/25 flex items-center justify-center">
+                        <i class="fa-solid fa-envelope mr-2"></i> Hubungi Kontak
+                    </a>
+                    <a href="#skills" class="px-6 py-3 rounded-lg glass-card border border-gray-700 hover:border-cyan-500/50 text-white font-semibold text-sm transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-code mr-2 text-cyan-400"></i> Lihat Keahlian
+                    </a>
                 </div>
             </div>
+
+            <!-- Right Profile Photo Column -->
+            <div class="md:col-span-5 flex justify-center">
+                <div class="relative group">
+                    <!-- Futuristic Animated Cyber Glow & Ring Effect -->
+                    <div class="absolute -inset-2 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 rounded-[2.5rem] blur-xl opacity-50 group-hover:opacity-80 transition duration-500 animate-pulse"></div>
+                    
+                    <!-- Main Card Container -->
+                    <div class="relative w-64 h-80 sm:w-72 sm:h-96 rounded-3xl glass-card overflow-hidden border border-cyan-500/40 flex flex-col justify-between p-3 shadow-2xl">
+                        
+                        <!-- Tech Status Badge Top-Right -->
+                        <div class="absolute top-5 right-5 z-20 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-cyan-500/40 text-[10px] font-mono text-cyan-300 flex items-center space-x-1.5 shadow-md">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span>ONLINE</span>
+                        </div>
+
+                        <!-- Profile Image Container (Locked / Permanen) -->
+                        <div class="relative w-full h-full rounded-2xl overflow-hidden bg-gray-900/90 flex items-center justify-center pointer-events-none select-none">
+                            
+                            <!-- 
+                              =======================================================================
+                              [KODE FOTO PROFIL PERMANEN (JPG)] 
+                              Ganti attribute 'src' dengan nama file fotomu (contoh: foto-nawa.jpg)
+                              =======================================================================
+                            -->
+                            <img id="profile-img" 
+                                 src="foto-nawa.jpg" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/600x800/0f172a/06b6d4?text=Foto+Nawa+(.jpg)';" 
+                                 alt="Foto Profil Nawa" 
+                                 class="w-full h-full object-cover object-center transition duration-700">
+                            
+                        </div>
+
+                        <!-- Card Foot Label -->
+                        <div class="pt-3 pb-1 text-center">
+                            <h3 class="text-sm font-bold text-white font-mono tracking-wide">NAWA</h3>
+                            <p class="text-[11px] text-cyan-400 font-mono tracking-wider">TKJ SPECIALIST</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-gray-950/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-2">// KEAHLIAN TEKNIS</h2>
-                <h3 class="text-3xl sm:text-4xl font-bold text-white">Kemampuan & Spesialisasi TKJ</h3>
-                <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-gray-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase mb-2">// KEMAMPUAN UTAMA</h2>
+            <p class="text-3xl font-extrabold text-white sm:text-4xl">Keahlian Teknik Komputer & Jaringan</p>
+            <p class="mt-4 text-gray-400 text-sm sm:text-base">Fokus pada penguasaan perangkat keras, konfigurasi sistem jaringan, dan perawatan perangkat IT.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Skill 1 -->
+            <div class="glass-card rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl mb-5">
+                    <i class="fa-solid fa-network-wired"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Jaringan Komputer</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    Pemahaman dasar IP Addressing, Crimping kabel LAN (UTP), Setting Router/Switch, dan infrastruktur jaringan lokal (LAN).
+                </p>
+                <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-cyan-400 h-full rounded-full" style="width: 85%"></div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Skill 2 -->
+            <div class="glass-card rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl mb-5">
+                    <i class="fa-solid fa-desktop"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Hardware & Perakitan</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    Perakitan komponen PC, maintenance hardware, troubleshooting kerusakan perangkat keras, dan pengujian sistem komputer.
+                </p>
+                <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-blue-400 h-full rounded-full" style="width: 90%"></div>
+                </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="glass-card rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl mb-5">
+                    <i class="fa-brands fa-windows"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Sistem Operasi</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    Instalasi Windows & Linux, konfigurasi driver sistem, instalasi software aplikasi, serta manajemen sistem operasi dasar.
+                </p>
+                <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-indigo-400 h-full rounded-full" style="width: 80%"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-gray-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase mb-2">// RIWAYAT PENDIDIKAN</h2>
+            <p class="text-3xl font-extrabold text-white sm:text-4xl">Pendidikan & Sekolah</p>
+        </div>
+
+        <div class="max-w-2xl mx-auto">
+            <div class="relative border-l border-gray-800 pl-6 sm:pl-8 space-y-8">
                 
-                <!-- Skill 1: Networking -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <i class="fas fa-server text-2xl text-cyan-400"></i>
-                        <h4 class="text-lg font-bold text-white">Konfigurasi MikroTik</h4>
+                <!-- Item Pendidikan -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[39px] top-1 w-4 h-4 rounded-full bg-cyan-400 ring-4 ring-gray-900"></div>
+                    <div class="glass-card p-6 rounded-xl">
+                        <span class="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded">Siswa Aktif</span>
+                        <h3 class="text-xl font-bold text-white mt-3">SMK Ma'arif NU Tirto</h3>
+                        <p class="text-sm font-medium text-cyan-400">Teknik Komputer & Jaringan (TKJ)</p>
+                        <p class="text-sm text-gray-400 mt-2">
+                            Fokus mempelajari konfigurasi jaringan komputer, trouble shooting hardware, administrasi sistem, serta teknologi komunikasi data.
+                        </p>
                     </div>
-                    <p class="text-gray-400 text-xs mb-4">Setting Bandwidth (Queue), Firewall, VLAN, Hotspot, Routing Static & Dynamic.</p>
-                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                        <div class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-[90%]"></div>
-                    </div>
-                    <span class="text-xs font-mono text-cyan-400 float-right mt-1">90%</span>
                 </div>
 
-                <!-- Skill 2: Hardware -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <i class="fas fa-desktop text-2xl text-cyan-400"></i>
-                        <h4 class="text-lg font-bold text-white">Perakitan & Troubleshooting PC</h4>
-                    </div>
-                    <p class="text-gray-400 text-xs mb-4">Perakitan hardware, diagnosa kerusakan komponen, maintenance & instalasi OS.</p>
-                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                        <div class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-[88%]"></div>
-                    </div>
-                    <span class="text-xs font-mono text-cyan-400 float-right mt-1">88%</span>
-                </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Skill 3: Linux System -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <i class="fab fa-linux text-2xl text-cyan-400"></i>
-                        <h4 class="text-lg font-bold text-white">Administrasi Linux Server</h4>
-                    </div>
-                    <p class="text-gray-400 text-xs mb-4">Instalasi Server Debian/Ubuntu, Web Server (Nginx/Apache), DNS, & DHCP Server.</p>
-                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                        <div class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-[82%]"></div>
-                    </div>
-                    <span class="text-xs font-mono text-cyan-400 float-right mt-1">82%</span>
-                </div>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-gray-800/60">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase mb-2">// KONTAK SAYA</h2>
+            <p class="text-3xl font-extrabold text-white sm:text-4xl">Mari Terhubung</p>
+            <p class="mt-4 text-gray-400 text-sm">Jangan ragu untuk menghubungi saya melalui kontak di bawah ini.</p>
+        </div>
 
-                <!-- Skill 4: Cables & Topology -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <i class="fas fa-ethernet text-2xl text-cyan-400"></i>
-                        <h4 class="text-lg font-bold text-white">Infrastruktur Kabel LAN</h4>
-                    </div>
-                    <p class="text-gray-400 text-xs mb-4">Crimping RJ45 (Straight & Cross), Manajemen Kabel Tray, Pengujian Tester & Patch Panel.</p>
-                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                        <div class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-[95%]"></div>
-                    </div>
-                    <span class="text-xs font-mono text-cyan-400 float-right mt-1">95%</span>
-               
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- WhatsApp / Phone -->
+            <a href="https://wa.me/6285743674463" target="_blank" class="glass-card p-6 rounded-xl flex items-center space-x-4 transition-all hover:scale-105">
+                <div class="w-12 h-12 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center text-green-400 text-xl flex-shrink-0">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-xs font-mono text-gray-400">WhatsApp / Telepon</p>
+                    <p class="text-sm font-bold text-white truncate">085743674463</p>
+                </div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:nawamyxtrxs@gmail.com" class="glass-card p-6 rounded-xl flex items-center space-x-4 transition-all hover:scale-105">
+                <div class="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl flex-shrink-0">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-xs font-mono text-gray-400">Email Resmi</p>
+                    <p class="text-sm font-bold text-white truncate">nawamyxtrxs@gmail.com</p>
+                </div>
+            </a>
+
+            <!-- Alamat -->
+            <div class="glass-card p-6 rounded-xl flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl flex-shrink-0">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-xs font-mono text-gray-400">Lokasi / Alamat</p>
+                    <p class="text-sm font-bold text-white truncate">Samborejo, Tirto, Pekalongan</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-900 glass-card">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-xs font-mono text-gray-500">
+                &copy; <span id="year"></span> <s
