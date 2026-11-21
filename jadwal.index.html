@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Prakerin - Lambang Jaya Komputer Pekalongan</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
+
+    <!-- Notifikasi Toast (Pengganti alert) -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 text-sm font-medium border border-slate-700">
+            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+            <span id="toast-message">Berhasil disalin ke clipboard!</span>
+        </div>
+    </div>
+
+    <!-- Header / Hero Section -->
+    <header class="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-700/60 border border-blue-500/40 text-blue-100 text-xs font-semibold tracking-wide uppercase mb-3">
+                        <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
+                        <span>Lambang Jaya Komputer Pekalongan</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
+                        Jadwal Shift Prakerin
+                    </h1>
+                    <p class="mt-2 text-blue-100 text-sm sm:text-base max-w-2xl">
+                        Periode 1 Bulan: <strong class="text-white font-semibold">Kamis, 19 November 2026 – Jum'at, 18 Desember 2026</strong>
+                    </p>
+                </div>
+
+                <!-- Kartu Info Hari Ini -->
+                <div id="today-card" class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-5 min-w-[260px] shadow-inner">
+                    <div class="flex items-center justify-between text-xs text-blue-200 font-medium mb-1">
+                        <span>STATUS HARI INI</span>
+                        <span id="today-date-label" class="bg-blue-500/30 px-2 py-0.5 rounded-md text-white">Memuat...</span>
+                    </div>
+                    <div id="today-status-content" class="mt-2">
+                        <!-- Diisi otomatis oleh JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+
+        <!-- Tata Tertib & Jam Masuk -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex items-start gap-4">
+                <div class="p-3 rounded-xl bg-amber-100 text-amber-600 shrink-0">
+                    <i data-lucide="sunrise" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Shift Pagi</h3>
+                    <p class="text-xl font-extrabold text-amber-600 mt-0.5">08.20 WIB</p>
+                    <p class="text-xs text-slate-500 mt-1">Boleh pulang jika shift siang sudah berangkat semua.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex items-start gap-4">
+                <div class="p-3 rounded-xl bg-sky-100 text-sky-600 shrink-0">
+                    <i data-lucide="sun" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Shift Siang</h3>
+                    <p class="text-xl font-extrabold text-sky-600 mt-0.5">12.30 WIB</p>
+                    <p class="text-xs text-slate-500 mt-1">Khusus hari <strong class="text-slate-700">Jum'at</strong> berangkat jam <strong class="text-sky-700">13.20 WIB</strong>.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex items-start gap-4">
+                <div class="p-3 rounded-xl bg-rose-100 text-rose-600 shrink-0">
+                    <i data-lucide="calendar-off" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Ketentuan Minggu</h3>
+                    <p class="text-base font-bold text-rose-600 mt-0.5">Toko Libur</p>
+                    <p class="text-xs text-slate-500 mt-1">Hari Minggu tetap dihitung dalam urutan putaran shift.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kontrol Filter Grup & Aksi -->
+        <section class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm space-y-4">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <!-- Pilihan Grup -->
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Pilih Tampilan Jadwal</label>
+                    <div class="flex flex-wrap gap-2" id="group-tabs">
+                        <button onclick="setGroup('C')" data-group="C" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-bold transition-all bg-blue-600 text-white shadow-sm">
+                            Grup C (Utama)
+                        </button>
+                        <button onclick="setGroup('A')" data-group="A" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
+                            Grup A
+                        </button>
+                        <button onclick="setGroup('B')" data-group="B" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
+                            Grup B
+                        </button>
+                        <button onclick="setGroup('ALL')" data-group="ALL" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200">
+                            Semua Grup
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter Status & Tombol Salin WA -->
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <select id="status-filter" onchange="renderSchedule()" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="ALL">Semua Status Shift</option>
+                        <option value="Pagi">Hanya Shift Pagi</option>
+                        <option value="Siang">Hanya Shift Siang</option>
+                        <option value="Libur">Hanya Hari Libur</option>
+                    </select>
+
+                    <button onclick="copyWhatsAppText()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white text-sm font-semibold shadow-sm transition-all">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Salin Teks WA</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Daftar Anggota Grup Terpilih -->
+            <div id="members-box" class="pt-3 border-t border-slate-100">
+                <!-- Diisi dinamis oleh JS -->
+            </div>
+        </section>
+
+        <!-- Ringkasan Statistik Grup Terpilih -->
+        <section id="stats-section" class="grid grid-cols-3 gap-3 sm:gap-4">
+            <div class="bg-amber-50 border border-amber-200/70 rounded-2xl p-3.5 sm:p-4 text-center">
+                <span class="text-xs font-semibold text-amber-700 uppercase">Shift Pagi</span>
+                <p id="stat-pagi" class="text-2xl sm:text-3xl font-extrabold text-amber-600 mt-1">9</p>
+                <span class="text-[11px] text-amber-700/80">Hari Masuk</span>
+            </div>
+            <div class="bg-sky-50 border border-sky-200/70 rounded-2xl p-3.5 sm:p-4 text-center">
+                <span class="text-xs font-semibold text-sky-700 uppercase">Shift Siang</span>
+                <p id="stat-siang" class="text-2xl sm:text-3xl font-extrabold text-sky-600 mt-1">9</p>
+                <span class="text-[11px] text-sky-700/80">Hari Masuk</span>
+            </div>
+            <div class="bg-slate-100 border border-slate-200 rounded-2xl p-3.5 sm:p-4 text-center">
+                <span class="text-xs font-semibold text-slate-600 uppercase">Total Libur</span>
+                <p id="stat-libur" class="text-2xl sm:text-3xl font-extrabold text-slate-700 mt-1">12</p>
+                <span class="text-[11px] text-slate-500">Shift + Minggu</span>
+            </div>
+        </section>
+
+        <!-- Tabel Jadwal -->
+        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+                <h2 id="table-title" class="font-bold text-slate-900 text-base sm:text-lg">Urutan Jadwal Grup C</h2>
+                <span id="row-count" class="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">30 Hari</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50/80 border-b border-slate-200 text-xs font-bold uppercase tracking-wider text-slate-500" id="table-head">
+                            <!-- Header dinamis -->
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Baris jadwal dinamis -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Pesan Pembimbing -->
+        <section class="bg-blue-50/80 border border-blue-200/80 rounded-2xl p-5 text-sm text-blue-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-start gap-3">
+                <i data-lucide="info" class="w-5 h-5 text-blue-600 shrink-0 mt-0.5"></i>
+                <div>
+                    <p class="font-bold">Catatan Kedisiplinan:</p>
+                    <p class="text-blue-800/90 mt-0.5">Harap tepat waktu, selalu berpakaian sopan, biasakan disiplin & sopan santun, serta selalu taati peraturan yang ada. Jika ada yang bingung, tanyakan di grup, jangan dipendam di hati ya!</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+            <p class="font-semibold text-slate-700">Lambang Jaya Komputer Pekalongan</p>
+            <p class="mt-1">Jadwal Prakerin Siswa SMK &bull; Periode 19 November – 18 Desember 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data Anggota Tiap Grup
+        const groupMembers = {
+            A: [
+                { name: "M Fachry Syakib", school: "SMK Darussalam Subah" },
+                { name: "Diki Darmawan", school: "SMK Darussalam Subah" },
+                { name: "M. Jalaludin Muarifin", school: "SMK Nusa Mandiri" },
+                { name: "Maftuh Sirril Mannan", school: "SMK Nusa Mandiri" },
+                { name: "Tri Julia Sari", school: "SMK Ma'arif NU Doro" },
+                { name: "Selviyana Ulya", school: "SMK Ma'arif NU Doro" }
+            ],
+            B: [
+                { name: "Muhammad Irsyadur Rizqi", school: "SMK Gondang" },
+                { name: "M. Ali Sya'bana", school: "SMK Gondang" },
+                { name: "Asilatu Zahrotu Nisa (Asila)", school: "SMK Islam 45 Wiradesa" },
+                { name: "Lilis Sakinah (Lissa)", school: "SMK Islam 45 Wiradesa" }
+            ],
+            C: [
+                { name: "M. Bahaudin", school: "SMK Gondang" },
+                { name: "Muhammad Munif Afandi", school: "SMK Gondang" },
+                { name: "M Nawa Dwi Saputra", school: "SMK Ma'arif NU Tirto" },
+                { name: "Khafidz Baihaqi", school: "SMK Ma'arif NU Tirto" },
+                { name: "Silfiya Rahma (Rahma)", school: "SMK Muhammadiyah Bligo" },
+                { name: "Dewi Prasetia (Tia)", school: "SMK Muhammadiyah Bligo" }
+            ]
+        };
+
+        // Pola Rotasi 3 Hari (19 Nov 2026 dimulai dari Pola 1)
+        const patterns = [
+            { pagi: "B", siang: "C", libur: "A" }, // Pola 1 (Kamis)
+            { pagi: "A", siang: "B", libur: "C" }, // Pola 2 (Jum'at)
+            { pagi: "C", siang: "A", libur: "B" }  // Pola 3 (Sabtu)
+        ];
+
+        const namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+        const namaBulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+
+        // Generate 30 hari jadwal mulai Kamis, 19 November 2026
+        const scheduleData = [];
+        const startDate = new Date(2026, 10, 19); // Bulan 10 = November (0-indexed)
+
+        for (let i = 0; i < 30; i++) {
+            const current = new Date(startDate);
+            current.setDate(startDate.getDate() + i);
+
+            const dayIndex = current.getDay();
+            const isSunday = dayIndex === 0;
+            const isFriday = dayIndex === 5;
+            const pattern = patterns[i % 3];
+
+            const yyyy = current.getFullYear();
+            const mm = String(current.getMonth() + 1).padStart(2, '0');
+            const dd = String(current.getDate()).padStart(2, '0');
+            const isoDate = `${yyyy}-${mm}-${dd}`;
+            const formattedDate = `${dd} ${namaBulan[current.getMonth()]} ${yyyy}`;
+
+            scheduleData.push({
+                index: i + 1,
+                isoDate,
+                formattedDate,
+                dayName: namaHari[dayIndex],
+                isSunday,
+                isFriday,
+                pattern,
+                siangTime: isFriday ? "13.20 WIB" : "12.30 WIB"
+            });
+        }
+
+        let selectedGroup = 'C';
+
+        // Fungsi mengubah grup aktif
+        function setGroup(group) {
+            selectedGroup = group;
+
+            // Update style tombol tab
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.dataset.group === group) {
+                    btn.className = "tab-btn px-4 py-2.5 rounded-xl text-sm font-bold transition-all bg-blue-600 text-white shadow-sm";
+                } else {
+                    btn.className = "tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200";
+                }
+            });
+
+            // Sembunyikan filter status jika tampilan ALL
+            const statusFilter = document.getElementById('status-filter');
+            const statsSection = document.getElementById('stats-section');
+            if (group === 'ALL') {
+                statusFilter.classList.add('hidden');
+                statsSection.classList.add('hidden');
+            } else {
+                statusFilter.classList.remove('hidden');
+                statsSection.classList.remove('hidden');
+            }
+
+            renderMembers();
+            renderSchedule();
+            updateTodayCard();
+        }
+
+        // Render daftar anggota grup
+        function renderMembers() {
+            const container = document.getElementById('members-box');
+            if (selectedGroup === 'ALL') {
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+                        ${['A', 'B', 'C'].map(g => `
+                            <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/70">
+                                <span class="inline-block px-2.5 py-0.5 rounded-md text-xs font-bold bg-blue-100 text-blue-800 mb-2">Grup ${g} (${groupMembers[g].length} Siswa)</span>
+                                <ul class="space-y-1 text-xs text-slate-700">
+                                    ${groupMembers[g].map(m => `<li>• <strong>${m.name}</strong> <span class="text-slate-400">(${m.school})</span></li>`).join('')}
+                                </ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                return;
+            }
+
+            const members = groupMembers[selectedGroup];
+            container.innerHTML = `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Anggota Grup ${selectedGroup} (${members.length} Siswa):</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    ${members.map(m => `
+                        <div class="flex items-center gap-2.5 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200/60">
+                            <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0">
+                                ${m.name.charAt(0)}
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-xs font-bold text-slate-800 truncate">${m.name}</p>
+                                <p class="text-[11px] text-slate-500 truncate">${m.school}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Dapatkan status grup pada hari tertentu
+        function getGroupStatus(dayItem, group) {
+            let rawShift = "";
+            if (dayItem.pattern.pagi === group) rawShift = "Pagi";
+            else if (dayItem.pattern.siang === group) rawShift = "Siang";
+            else rawShift = "Libur";
+
+            if (dayItem.isSunday) {
+                return {
+                    status: "Libur",
+                    isSunday: true,
+                    rawShift,
+                    time: "-",
+                    note: `Libur Minggu (urutan shift: ${rawShift})`
+                };
+            }
+
+            if (rawShift === "Pagi") {
+                return {
+                    status: "Pagi",
+                    isSunday: false,
+                    rawShift,
+                    time: "08.20 WIB",
+                    note: "Pulang setelah shift siang berangkat semua"
+                };
+            } else if (rawShift === "Siang") {
+                return {
+                    status: "Siang",
+                    isSunday: false,
+                    rawShift,
+                    time: dayItem.siangTime,
+                    note: dayItem.isFriday ? "Khusus hari Jum'at masuk 13.20 WIB" : "Masuk shift siang"
+                };
+            } else {
+                return {
+                    status: "Libur",
+                    isSunday: false,
+                    rawShift,
+                    time: "-",
+                    note: "Giliran libur shift"
+                };
+            }
+        }
+
+        // Render tabel jadwal
+        function renderSchedule() {
+            const thead = document.getElementById('table-head');
+            const tbody = document.getElementById('table-body');
+            const tableTitle = document.getElementById('table-title');
+            const rowCount = document.getElementById('row-count');
+            const filterVal = document.getElementById('status-filter').value;
+
+            // Cek tanggal hari ini (format YYYY-MM-DD)
+            const now = new Date();
+            const todayIso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+            if (selectedGroup === 'ALL') {
+                tableTitle.textContent = "Urutan Jadwal Semua Grup (A, B, C)";
+                thead.innerHTML = `
+                    <th class="py-3.5 px-4">Tanggal</th>
+                    <th class="py-3.5 px-4">Hari</th>
+                    <th class="py-3.5 px-4">Shift Pagi (08.20)</th>
+                    <th class="py-3.5 px-4">Shift Siang</th>
+                    <th class="py-3.5 px-4">Libur / Keterangan</th>
+                `;
+
+                rowCount.textContent = `${scheduleData.length} Hari`;
+                tbody.innerHTML = scheduleData.map(item => {
+                    const isToday = item.isoDate === todayIso;
+                    const rowBg = isToday ? "bg-blue-50/90 font-medium" : (item.isSunday ? "bg-rose-50/40 text-slate-500" : "hover:bg-slate-50");
+
+                    return `
+                        <tr class="${rowBg} transition-colors">
+                            <td class="py-3.5 px-4 whitespace-nowrap font-semibold text-slate-900">
+                                ${item.formattedDate}
+                                ${isToday ? '<span class="ml-2 px-2 py-0.5 text-[10px] font-bold uppercase bg-blue-600 text-white rounded-full">Hari Ini</span>' : ''}
+                            </td>
+                            <td class="py-3.5 px-4 whitespace-nowrap ${item.isSunday ? 'text-rose-600 font-bold' : ''}">${item.dayName}</td>
+                            <td class="py-3.5 px-4 whitespace-nowrap">
+                                ${item.isSunday ? `<span class="text-slate-400 line-through">Grup ${item.pattern.pagi}</span>` : `<span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-amber-100 text-amber-800">Grup ${item.pattern.pagi}</span>`}
+                            </td>
+                            <td class="py-3.5 px-4 whitespace-nowrap">
+                                ${item.isSunday ? `<span class="text-slate-400 line-through">Grup ${item.pattern.siang}</span>` : `<span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Grup ${item.pattern.siang} (${item.siangTime})</span>`}
+                            </td>
+                            <td class="py-3.5 px-4">
+                                ${item.isSunday
+                                    ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-rose-100 text-rose-700">Toko Libur (Minggu)</span>`
+                                    : `<span class="text-slate-600 font-medium">Grup ${item.pattern.libur}</span>`}
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+                return;
+            }
+
+            // Tampilan Spesifik Grup (A, B, atau C)
+            tableTitle.textContent = `Urutan Jadwal Khusus Grup ${selectedGroup}`;
+            thead.innerHTML = `
+                <th class="py-3.5 px-4">Tanggal</th>
+                <th class="py-3.5 px-4">Hari</th>
+                <th class="py-3.5 px-4">Status Shift</th>
+                <th class="py-3.5 px-4">Jam Berangkat</th>
+                <th class="py-3.5 px-4">Keterangan</th>
+            `;
+
+            // Hitung statistik total 1 bulan
+            let countPagi = 0, countSiang = 0, countLibur = 0;
+            const mappedRows = scheduleData.map(item => {
+                const info = getGroupStatus(item, selectedGroup);
+                if (info.status === "Pagi") countPagi++;
+                else if (info.status === "Siang") countSiang++;
+                else countLibur++;
+                return { ...item, info };
+            });
+
+            document.getElementById('stat-pagi').textContent = countPagi;
+            document.getElementById('stat-siang').textContent = countSiang;
+            document.getElementById('stat-libur').textContent = countLibur;
+
+            // Filter baris sesuai dropdown
+            const filtered = mappedRows.filter(r => filterVal === 'ALL' || r.info.status === filterVal);
+            rowCount.textContent = `${filtered.length} Hari`;
+
+            tbody.innerHTML = filtered.map(item => {
+                const isToday = item.isoDate === todayIso;
+                const rowBg = isToday ? "bg-blue-50/90" : (item.isSunday ? "bg-rose-50/30" : "hover:bg-slate-50");
+
+                let badgeHtml = "";
+                if (item.info.status === "Pagi") {
+                    badgeHtml = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Shift Pagi</span>`;
+                } else if (item.info.status === "Siang") {
+                    badgeHtml = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-800"><span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>Shift Siang</span>`;
+                } else {
+                    badgeHtml = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${item.isSunday ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-600'}"><span class="w-1.5 h-1.5 rounded-full ${item.isSunday ? 'bg-rose-500' : 'bg-slate-400'}"></span>Libur</span>`;
+                }
+
+                return `
+                    <tr class="${rowBg} transition-colors">
+                        <td class="py-3.5 px-4 whitespace-nowrap font-semibold text-slate-900">
+                            ${item.formattedDate}
+                            ${isToday ? '<span class="ml-2 px-2 py-0.5 text-[10px] font-bold uppercase bg-blue-600 text-white rounded-full">Hari Ini</span>' : ''}
+                        </td>
+                        <td class="py-3.5 px-4 whitespace-nowrap ${item.isSunday ? 'text-rose-600 font-bold' : 'text-slate-700'}">${item.dayName}</td>
+                        <td class="py-3.5 px-4 whitespace-nowrap">${badgeHtml}</td>
+                        <td class="py-3.5 px-4 whitespace-nowrap font-bold ${item.info.time !== '-' ? 'text-slate-800' : 'text-slate-400'}">${item.info.time}</td>
+                        <td class="py-3.5 px-4 text-slate-600 text-xs sm:text-sm">${item.info.note}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Update kartu status hari ini
+        function updateTodayCard() {
+            const now = new Date();
+            const todayIso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            const dateLabel = document.getElementById('today-date-label');
+            const content = document.getElementById('today-status-content');
+
+            const found = scheduleData.find(d => d.isoDate === todayIso);
+
+            if (!found) {
+                dateLabel.textContent = `${now.getDate()} ${namaBulan[now.getMonth()]} ${now.getFullYear()}`;
+                content.innerHTML = `<p class="text-sm text-blue-100">Di luar rentang jadwal 19 Nov – 18 Des 2026.</p>`;
+                return;
+            }
+
+            dateLabel.textContent = `${found.dayName}, ${found.formattedDate}`;
+
+            if (found.isSunday) {
+                content.innerHTML = `
+                    <p class="text-lg font-extrabold text-rose-300">Toko Libur (Hari Minggu)</p>
+                    <p class="text-xs text-blue-100 mt-0.5">Tetap terhitung dalam urutan putaran shift.</p>
+                `;
+                return;
+            }
+
+            if (selectedGroup === 'ALL') {
+                content.innerHTML = `
+                    <div class="text-xs space-y-1 text-blue-50">
+                        <p>🌅 <strong>Pagi (08.20):</strong> Grup ${found.pattern.pagi}</p>
+                        <p>☀️ <strong>Siang (${found.siangTime}):</strong> Grup ${found.pattern.siang}</p>
+                        <p>🏠 <strong>Libur:</strong> Grup ${found.pattern.libur}</p>
+                    </div>
+                `;
+            } else {
+                const info = getGroupStatus(found, selectedGroup);
+                content.innerHTML = `
+                    <p class="text-lg font-extrabold text-white">Grup ${selectedGroup}: ${info.status.toUpperCase()}</p>
+                    <p class="text-xs text-blue-100 mt-0.5">${info.time !== '-' ? `Berangkat jam <strong>${info.time}</strong>` : info.note}</p>
+                `;
+            }
+        }
+
+        // Fitur Salin Teks ke WhatsApp
+        function copyWhatsAppText() {
+            let text = "";
+            if (selectedGroup === 'ALL') {
+                text = `*JADWAL PRAKERIN LAMBANG JAYA KOMPUTER PEKALONGAN*\nPeriode: 19 Nov – 18 Des 2026\n\n`;
+                scheduleData.forEach(d => {
+                    if (d.isSunday) {
+                        text += `• ${d.dayName}, ${d.formattedDate}: *LIBUR MINGGU*\n`;
+                    } else {
+                        text += `• ${d.dayName}, ${d.formattedDate}: Pagi (Grup ${d.pattern.pagi}) | Siang (Grup ${d.pattern.siang} - ${d.siangTime}) | Libur (Grup ${d.pattern.libur})\n`;
+                    }
+                });
+            } else {
+                text = `*JADWAL PRAKERIN GRUP ${selectedGroup}*\nLambang Jaya Komputer Pekalongan\nPeriode: 19 Nov – 18 Des 2026\n\n*Anggota Grup ${selectedGroup}:*\n`;
+                groupMembers[selectedGroup].forEach(m => {
+                    text += `- ${m.name} (${m.school})\n`;
+                });
+                text += `\n*Urutan Jadwal:*\n`;
+                scheduleData.forEach(d => {
+                    const info = getGroupStatus(d, selectedGroup);
+                    const jamStr = info.time !== '-' ? ` (${info.time})` : (d.isSunday ? ' [Minggu]' : '');
+                    text += `• ${d.dayName}, ${d.formattedDate}: *${info.status}*${jamStr}\n`;
+                });
+                text += `\n_Harap tepat waktu & selalu berpakaian sopan._`;
+            }
+
+            // Menggunakan textarea + execCommand('copy') agar kompatibel di iframe
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(`Jadwal ${selectedGroup === 'ALL' ? 'Semua Grup' : 'Grup ' + selectedGroup} disalin! Siap paste ke WA.`);
+            } catch (err) {
+                showToast('Gagal menyalin teks.');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Tampilkan notifikasi toast
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Inisialisasi saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            setGroup('C'); // Default tampilkan Grup C
+        });
+    </script>
+</body>
+</html>
